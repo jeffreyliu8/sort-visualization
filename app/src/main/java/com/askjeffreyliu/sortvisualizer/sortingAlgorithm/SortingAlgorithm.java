@@ -1,20 +1,25 @@
 package com.askjeffreyliu.sortvisualizer.sortingAlgorithm;
 
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
+
 /**
  * Created by jeff on 11/17/17.
  */
 
 public class SortingAlgorithm {
-    private int[] array;
+    protected int[] list;
+    protected Queue<StepInfo> queue = new ConcurrentLinkedQueue<>();
+    protected int stepCount = 0;
 
-    public SortingAlgorithm() {
+    public SortingAlgorithm(int[] list) {
+        this.list = list;
     }
 
-    public int[] getArray() {
-        return array;
+    public void sort() {
     }
 
-    public void setArray(int[] array) {
-        this.array = array;
+    public StepInfo pop() {
+        return queue.poll();
     }
 }

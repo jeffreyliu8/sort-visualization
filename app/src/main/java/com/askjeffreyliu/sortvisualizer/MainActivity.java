@@ -11,9 +11,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.CheckBox;
+
 import android.widget.TextView;
 
+import com.askjeffreyliu.sortvisualizer.sortingAlgorithm.StepInfo;
 import com.askjeffreyliu.sortvisualizer.viewModel.ChartViewModel;
 
 import java.util.List;
@@ -51,21 +52,22 @@ public class MainActivity extends AppCompatActivity {
         mModel = ViewModelProviders.of(this).get(ChartViewModel.class);
 
         // Create the observer which updates the UI.
-        final Observer<int[]> dataObserver = new Observer<int[]>() {
+        final Observer<StepInfo> dataObserver = new Observer<StepInfo>() {
             @Override
-            public void onChanged(@Nullable final int[] newData) {
+            public void onChanged(@Nullable final StepInfo newData) {
                 // Update the UI, in this case, a TextView.
-
                 if (newData != null) {
                     String result = "";
-                    for (int i = 0; i < newData.length; i++) {
-                        result = result + newData[i] + " ";
+                    for (int i = 0; i < newData.getList().length; i++) {
+                        result = result + newData.getList()[i] + " ";
                     }
-
+                    result = result + "   step " + newData.getStepCounter();
                     textViews.get(0).setText(result);
+
+                    if (newData.isFinalStep()) {
+                        textViews.get(0).setText(textViews.get(0).getText() + "  done");
+                    }
                 }
-
-
             }
         };
 

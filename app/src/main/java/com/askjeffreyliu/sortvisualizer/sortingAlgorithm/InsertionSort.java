@@ -6,4 +6,7 @@ package com.askjeffreyliu.sortvisualizer.sortingAlgorithm;
 
 public class InsertionSort extends SortingAlgorithm {
 
+    public InsertionSort(int[] list) {
+        super(list);
+    }
 }

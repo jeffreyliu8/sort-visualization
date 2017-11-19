@@ -6,4 +6,7 @@ package com.askjeffreyliu.sortvisualizer.sortingAlgorithm;
 
 public class SelectionSort extends SortingAlgorithm {
 
+    public SelectionSort(int[] list) {
+        super(list);
+    }
 }

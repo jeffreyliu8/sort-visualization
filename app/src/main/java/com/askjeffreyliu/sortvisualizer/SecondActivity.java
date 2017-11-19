@@ -49,31 +49,43 @@ public class SecondActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Merge sort, Quick sort, Insertion sort, and Selection sort. Bonus points for Heap sort.
-                HashSet<SortingAlgorithm> algorithms = new HashSet<>();
+                int[] dataSet = SortingVisualizationManager.getInstance().generateData();
                 if (checkBoxes.get(0).isChecked()) {
-                    algorithms.add(new BubbleSort());
+                    SortingAlgorithm bubbleSort = new BubbleSort(dataSet);
+                    bubbleSort.sort();
+                    SortingVisualizationManager.getInstance().selectAlgorithms(bubbleSort);
                 }
                 if (checkBoxes.get(1).isChecked()) {
-                    algorithms.add(new MergeSort());
+                    SortingAlgorithm mergeSort = new MergeSort(dataSet);
+                    mergeSort.sort();
+                    SortingVisualizationManager.getInstance().selectAlgorithms(mergeSort);
                 }
                 if (checkBoxes.get(2).isChecked()) {
-                    algorithms.add(new QuickSort());
+                    SortingAlgorithm quickSort = new QuickSort(dataSet);
+                    quickSort.sort();
+                    SortingVisualizationManager.getInstance().selectAlgorithms(quickSort);
                 }
                 if (checkBoxes.get(3).isChecked()) {
-                    algorithms.add(new InsertionSort());
+
+                    SortingAlgorithm insertionSort = new InsertionSort(dataSet);
+                    insertionSort.sort();
+                    SortingVisualizationManager.getInstance().selectAlgorithms(insertionSort);
                 }
                 if (checkBoxes.get(4).isChecked()) {
-                    algorithms.add(new SelectionSort());
+                    SortingAlgorithm selectionSort = new SelectionSort(dataSet);
+                    selectionSort.sort();
+                    SortingVisualizationManager.getInstance().selectAlgorithms(selectionSort);
                 }
                 if (checkBoxes.get(5).isChecked()) {
-                    algorithms.add(new HeapSort());
+                    SortingAlgorithm heapSort = new HeapSort(dataSet);
+                    heapSort.sort();
+                    SortingVisualizationManager.getInstance().selectAlgorithms(heapSort);
                 }
 
-                if (algorithms.size() == 0) {
+                if (!SortingVisualizationManager.getInstance().hasAlgorithm()) {
                     Snackbar.make(view, "Please select at least 1 item", Snackbar.LENGTH_LONG)
                             .show();
                 } else {
-                    SortingVisualizationManager.getInstance().selectAlgorithms(algorithms);
                     startActivity(new Intent(SecondActivity.this, MainActivity.class));
                 }
             }
