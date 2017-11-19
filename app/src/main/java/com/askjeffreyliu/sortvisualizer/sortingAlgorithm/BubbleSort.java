@@ -31,11 +31,4 @@ public class BubbleSort extends SortingAlgorithm {
         };
         thread.start();
     }
-
-    private void addStepToQueue(boolean isFinalStep) {
-        stepCount++;
-        int[] copy = new int[list.length];
-        System.arraycopy(list, 0, copy, 0, list.length);
-        queue.add(new StepInfo(copy, stepCount, isFinalStep));
-    }
 }

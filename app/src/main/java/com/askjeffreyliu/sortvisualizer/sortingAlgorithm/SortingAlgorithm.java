@@ -8,9 +8,9 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  */
 
 public class SortingAlgorithm {
-    protected int[] list;
-    protected Queue<StepInfo> queue = new ConcurrentLinkedQueue<>();
-    protected int stepCount = 0;
+    int[] list;
+    Queue<StepInfo> queue = new ConcurrentLinkedQueue<>();
+    int stepCount = 0;
 
     public SortingAlgorithm(int[] list) {
         this.list = list;
@@ -21,5 +21,13 @@ public class SortingAlgorithm {
 
     public StepInfo pop() {
         return queue.poll();
+    }
+
+
+    void addStepToQueue(boolean isFinalStep) {
+        stepCount++;
+        int[] copy = new int[list.length];
+        System.arraycopy(list, 0, copy, 0, list.length);
+        queue.add(new StepInfo(copy, stepCount, isFinalStep));
     }
 }

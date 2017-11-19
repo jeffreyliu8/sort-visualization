@@ -2,6 +2,7 @@ package com.askjeffreyliu.sortvisualizer;
 
 
 import com.askjeffreyliu.sortvisualizer.sortingAlgorithm.SortingAlgorithm;
+import com.askjeffreyliu.sortvisualizer.sortingAlgorithm.StepInfo;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
@@ -37,15 +38,17 @@ public class SortingVisualizationManager {
     public void selectAlgorithms(SortingAlgorithm algorithm) {
         if (algorithmsMap == null) {
             algorithmsMap = new HashMap<>();
-        } else {
-            algorithmsMap.clear();
         }
 
         algorithmsMap.put(algorithm.getClass().getSimpleName(), algorithm);
     }
 
-    public SortingAlgorithm getAlgorithms(String name) {
-        return algorithmsMap.get(name);
+    public StepInfo popFromAlgorithm(String name) {
+        if (algorithmsMap.containsKey(name)) {
+            return algorithmsMap.get(name).pop();
+        }
+        Logger.e(name + " does not exist");
+        return null;
     }
 
     public boolean hasAlgorithm() {
@@ -59,7 +62,7 @@ public class SortingVisualizationManager {
             case Constant.SETTING_RANDOM: {
                 List<Integer> ascList = new ArrayList<>();
                 for (int i = 0; i < result.length; i++) {
-                    ascList.add(i+1);
+                    ascList.add(i + 1);
                 }
                 Collections.shuffle(ascList);
 
