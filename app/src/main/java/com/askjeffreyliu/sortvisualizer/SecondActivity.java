@@ -51,22 +51,22 @@ public class SecondActivity extends AppCompatActivity {
                 // Merge sort, Quick sort, Insertion sort, and Selection sort. Bonus points for Heap sort.
                 HashSet<SortingAlgorithm> algorithms = new HashSet<>();
                 if (checkBoxes.get(0).isChecked()) {
-                    algorithms.add(new BubbleSort(SortingVisualizationManager.getInstance().getNumberOfItems()));
+                    algorithms.add(new BubbleSort());
                 }
                 if (checkBoxes.get(1).isChecked()) {
-                    algorithms.add(new MergeSort(SortingVisualizationManager.getInstance().getNumberOfItems()));
+                    algorithms.add(new MergeSort());
                 }
                 if (checkBoxes.get(2).isChecked()) {
-                    algorithms.add(new QuickSort(SortingVisualizationManager.getInstance().getNumberOfItems()));
+                    algorithms.add(new QuickSort());
                 }
                 if (checkBoxes.get(3).isChecked()) {
-                    algorithms.add(new InsertionSort(SortingVisualizationManager.getInstance().getNumberOfItems()));
+                    algorithms.add(new InsertionSort());
                 }
                 if (checkBoxes.get(4).isChecked()) {
-                    algorithms.add(new SelectionSort(SortingVisualizationManager.getInstance().getNumberOfItems()));
+                    algorithms.add(new SelectionSort());
                 }
                 if (checkBoxes.get(5).isChecked()) {
-                    algorithms.add(new HeapSort(SortingVisualizationManager.getInstance().getNumberOfItems()));
+                    algorithms.add(new HeapSort());
                 }
 
                 if (algorithms.size() == 0) {

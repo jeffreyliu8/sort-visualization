@@ -6,7 +6,4 @@ package com.askjeffreyliu.sortvisualizer.sortingAlgorithm;
 
 public class HeapSort extends SortingAlgorithm {
 
-    public HeapSort(int numberOfElements) {
-        super(numberOfElements);
-    }
 }

@@ -5,13 +5,9 @@ package com.askjeffreyliu.sortvisualizer.sortingAlgorithm;
  */
 
 public class SortingAlgorithm {
-
-    //private int numberOfElements;
     private int[] array;
 
-    public SortingAlgorithm(int numberOfElements) {
-        //this.numberOfElements = numberOfElements;
-        array = new int[numberOfElements];
+    public SortingAlgorithm() {
     }
 
     public int[] getArray() {

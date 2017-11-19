@@ -6,7 +6,4 @@ package com.askjeffreyliu.sortvisualizer.sortingAlgorithm;
 
 public class QuickSort extends SortingAlgorithm {
 
-    public QuickSort(int numberOfElements) {
-        super(numberOfElements);
-    }
 }

@@ -6,7 +6,4 @@ package com.askjeffreyliu.sortvisualizer.sortingAlgorithm;
 
 public class MergeSort extends SortingAlgorithm {
 
-    public MergeSort(int numberOfElements) {
-        super(numberOfElements);
-    }
 }

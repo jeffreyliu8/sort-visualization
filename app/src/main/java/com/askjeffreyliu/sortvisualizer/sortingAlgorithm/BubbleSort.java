@@ -6,7 +6,5 @@ package com.askjeffreyliu.sortvisualizer.sortingAlgorithm;
 
 public class BubbleSort extends SortingAlgorithm {
 
-    public BubbleSort(int numberOfElements) {
-        super(numberOfElements);
-    }
+
 }
