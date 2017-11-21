@@ -1,15 +1,11 @@
 <resources>
     <string name="app_name">Sort Visualization</string>
     <string name="action_settings">Set Speed</string>
-    <string name="title_activity_first_screen">FirstScreenActivity</string>
-
 
     <string name="numberOfItemsToSort">Number of elements to sort: </string>
     <string name="random">Random</string>
     <string name="ascending">Ascending</string>
     <string name="descending">Descending</string>
-    <string name="title_activity_second">SecondActivity</string>
-
 
     <string name="bubble_sort">Bubble sort</string>
     <string name="merge_sort">Merge sort</string>

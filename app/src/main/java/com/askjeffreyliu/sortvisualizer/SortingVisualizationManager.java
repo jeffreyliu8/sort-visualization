@@ -6,7 +6,6 @@ import com.askjeffreyliu.sortvisualizer.sortingAlgorithm.StepInfo;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -25,7 +24,7 @@ public class SortingVisualizationManager {
 
     private int numberOfItems;
     private int orderOfInputSet;
-    private HashMap<String, SortingAlgorithm> algorithmsMap;
+    private SortingAlgorithm[] algorithmsList;
 
 
     public void init(int numberOfItems, int orderOfInputSet) {
@@ -33,38 +32,31 @@ public class SortingVisualizationManager {
         this.orderOfInputSet = orderOfInputSet;
     }
 
-    public void selectAlgorithms(SortingAlgorithm algorithm) {
-        if (algorithmsMap == null) {
-            algorithmsMap = new HashMap<>();
-        }
-
-        algorithmsMap.put(algorithm.getClass().getSimpleName(), algorithm);
+    public void selectAlgorithms(int index, SortingAlgorithm algorithm) {
+        algorithmsList[index] = algorithm;
     }
 
     public StepInfo[] popFromAlgorithms() {
         StepInfo[] result = new StepInfo[6];
-
-        result[0] = popFromAlgorithm(Constant.SORT_ALGORITHM_BUBBLE);
-        result[1] = popFromAlgorithm(Constant.SORT_ALGORITHM_MERGE);
-        result[2] = popFromAlgorithm(Constant.SORT_ALGORITHM_QUICK);
-        result[3] = popFromAlgorithm(Constant.SORT_ALGORITHM_INSERTION);
-        result[4] = popFromAlgorithm(Constant.SORT_ALGORITHM_SELECTION);
-        result[5] = popFromAlgorithm(Constant.SORT_ALGORITHM_HEAP);
+        for (int i = 0; i < result.length; i++) {
+            result[i] = popFromAlgorithm(i);
+        }
         return result;
     }
 
-    private StepInfo popFromAlgorithm(String name) {
-        if (algorithmsMap.containsKey(name)) {
-            return algorithmsMap.get(name).pop();
+    private StepInfo popFromAlgorithm(int index) {
+        if (algorithmsList[index] != null) {
+            return algorithmsList[index].pop();
         }
         return null;
     }
 
     public boolean hasAlgorithm() {
-        return algorithmsMap.size() > 0;
+        return algorithmsList.length > 0;
     }
 
     public int[] generateData() {
+        algorithmsList = new SortingAlgorithm[6];
         int[] result = new int[numberOfItems];
         switch (orderOfInputSet) {
             default:

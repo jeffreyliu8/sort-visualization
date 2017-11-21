@@ -15,12 +15,20 @@ import com.askjeffreyliu.sortvisualizer.sortingAlgorithm.StepInfo;
 public class SortStepLiveData extends MutableLiveData<StepInfo[]> {
     private TickTockMgr mTickTockMgr;
 
+    private StepInfo[] mStepInfos = new StepInfo[6];
+
     private SimpleTickTockListener mListener = new SimpleTickTockListener() {
         @Override
         public void onTickTock() {
 //            Logger.d("on tick tock");
             StepInfo[] stepInfos = SortingVisualizationManager.getInstance().popFromAlgorithms();
-            postValue(stepInfos);
+
+            for (int i = 0; i < stepInfos.length; i++) {
+                if(stepInfos[i]!=null){
+                    mStepInfos[i] = stepInfos[i];
+                }
+            }
+            postValue(mStepInfos);
         }
     };
 

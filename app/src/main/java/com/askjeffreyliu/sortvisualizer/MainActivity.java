@@ -6,10 +6,8 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,10 +27,12 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
 
@@ -47,30 +47,45 @@ public class MainActivity extends AppCompatActivity {
             , R.id.text6})
     List<TextView> textViews;
 
+    @BindView(R.id.fab)
+    FloatingActionButton fab;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                boolean isOn = Utils.getIsPlaying(MainActivity.this);
+                isOn = !isOn;
+                Utils.setIsPlaying(MainActivity.this, isOn);
+                setFabImageAndRun(isOn);
             }
         });
-
-        setSortListener();
 
         int[] initSet = getIntent().getIntArrayExtra(INPUT_DATA);
         if (initSet != null) {
             for (int i = 0; i < 6; i++) {
                 drawChart(i, initSet);
             }
+        }
+        setSortListener();
+
+        boolean isOn = Utils.getIsPlaying(MainActivity.this);
+        setFabImageAndRun(isOn);
+    }
+
+    private void setFabImageAndRun(boolean isOn) {
+        Logger.d("setFabImageAndRun " + isOn);
+        if (isOn) {
+            fab.setImageResource(R.drawable.ic_pause_white_24dp);
+            TickTockMgr.getInstance().run();
+        } else {
+            fab.setImageResource(R.drawable.ic_play_arrow_white_24dp);
+            TickTockMgr.getInstance().stop();
         }
     }
 
@@ -133,18 +148,15 @@ public class MainActivity extends AppCompatActivity {
             numberPicker.setMaxValue(20);
             numberPicker.setMinValue(1);
             numberPicker.setWrapSelectorWheel(true);
-            numberPicker.setValue(TickTockMgr.getInstance().getFps());
+            numberPicker.setValue(Utils.getFps(MainActivity.this));
             numberPicker.setGravity(Gravity.CENTER);
 
             frameLayout.addView(numberPicker);
-
             alert.setView(frameLayout);
-
-
             alert.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                     int value = numberPicker.getValue();
-                    TickTockMgr.getInstance().setFps(value);
+                    Utils.setFps(MainActivity.this, value);
                     Toast.makeText(MainActivity.this, "FPS: " + value, Toast.LENGTH_LONG).show();
                 }
             });

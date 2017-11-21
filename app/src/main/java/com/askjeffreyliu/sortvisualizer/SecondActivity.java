@@ -42,8 +42,6 @@ public class SecondActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
         ButterKnife.bind(this);
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,33 +51,32 @@ public class SecondActivity extends AppCompatActivity {
                 if (checkBoxes.get(0).isChecked()) {
                     SortingAlgorithm bubbleSort = new BubbleSort(dataSet);
                     bubbleSort.sort();
-                    SortingVisualizationManager.getInstance().selectAlgorithms(bubbleSort);
+                    SortingVisualizationManager.getInstance().selectAlgorithms(0, bubbleSort);
                 }
                 if (checkBoxes.get(1).isChecked()) {
                     SortingAlgorithm mergeSort = new MergeSort(dataSet);
                     mergeSort.sort();
-                    SortingVisualizationManager.getInstance().selectAlgorithms(mergeSort);
+                    SortingVisualizationManager.getInstance().selectAlgorithms(1, mergeSort);
                 }
                 if (checkBoxes.get(2).isChecked()) {
                     SortingAlgorithm quickSort = new QuickSort(dataSet);
                     quickSort.sort();
-                    SortingVisualizationManager.getInstance().selectAlgorithms(quickSort);
+                    SortingVisualizationManager.getInstance().selectAlgorithms(2, quickSort);
                 }
                 if (checkBoxes.get(3).isChecked()) {
-
                     SortingAlgorithm insertionSort = new InsertionSort(dataSet);
                     insertionSort.sort();
-                    SortingVisualizationManager.getInstance().selectAlgorithms(insertionSort);
+                    SortingVisualizationManager.getInstance().selectAlgorithms(3, insertionSort);
                 }
                 if (checkBoxes.get(4).isChecked()) {
                     SortingAlgorithm selectionSort = new SelectionSort(dataSet);
                     selectionSort.sort();
-                    SortingVisualizationManager.getInstance().selectAlgorithms(selectionSort);
+                    SortingVisualizationManager.getInstance().selectAlgorithms(4, selectionSort);
                 }
                 if (checkBoxes.get(5).isChecked()) {
                     SortingAlgorithm heapSort = new HeapSort(dataSet);
                     heapSort.sort();
-                    SortingVisualizationManager.getInstance().selectAlgorithms(heapSort);
+                    SortingVisualizationManager.getInstance().selectAlgorithms(5, heapSort);
                 }
 
                 if (!SortingVisualizationManager.getInstance().hasAlgorithm()) {

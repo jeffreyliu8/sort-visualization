@@ -1,5 +1,7 @@
 package com.askjeffreyliu.sortvisualizer;
 
+import android.content.Context;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -20,44 +22,46 @@ public class TickTockMgr {
     private SimpleTickTockListener mListener = null;
     private TimerTask timerTask;
     private Timer timer;
-    private int fps;
+    private Context context;
 
-    public void setFps(int fps) {
-        this.fps = fps;
-        if (timerTask != null)
-            timerTask.cancel();
-        timerTask = new TimerTask() {
-            @Override
-            public void run() {
-                if (mListener != null) {
-                    mListener.onTickTock();
+    public void setContext(Context context) {
+        this.context = context;
+    }
+
+    //auto rerun
+    public void run() {
+        if (Utils.getIsPlaying(context)) {
+            stop();
+            timerTask = new TimerTask() {
+                @Override
+                public void run() {
+                    if (mListener != null) {
+                        mListener.onTickTock();
+                    }
                 }
-            }
-        };
-        long time = 1000 / fps;
-        if (timer == null)
-            timer = new Timer();
-        timer.scheduleAtFixedRate(timerTask, time, time);
-    }
+            };
 
-    public int getFps() {
-        return fps;
+            long time = 1000 / Utils.getFps(context);
+            if (timer == null)
+                timer = new Timer();
+            timer.scheduleAtFixedRate(timerTask, time, time);
+        }
     }
-
 
     public void requestUpdates(SimpleTickTockListener mListener) {
         this.mListener = mListener;
-
-        if (timerTask != null)
-            timerTask.cancel();
-
-        setFps(10);
+        run();
     }
 
     public void removeUpdates(SimpleTickTockListener mListener) {
         this.mListener = null;
-        if (timerTask != null)
-            timerTask.cancel();
+        stop();
+    }
 
+    public void stop() {
+        if (timerTask != null) {
+            timerTask.cancel();
+            timerTask = null;
+        }
     }
 }

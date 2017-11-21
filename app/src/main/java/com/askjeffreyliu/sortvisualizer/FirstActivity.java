@@ -38,6 +38,7 @@ public class FirstActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         Logger.addLogAdapter(new AndroidLogAdapter());
+        TickTockMgr.getInstance().setContext(getApplicationContext());
 
         numberPicker.setMinValue(1);
         numberPicker.setMaxValue(100);
