@@ -2,22 +2,25 @@ package com.askjeffreyliu.sortvisualizer;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
+import android.widget.FrameLayout;
+import android.widget.NumberPicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.askjeffreyliu.sortvisualizer.sortingAlgorithm.StepInfo;
-
 import com.askjeffreyliu.sortvisualizer.viewModel.ChartViewModel;
-
 
 import java.util.List;
 
@@ -104,6 +107,39 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            final AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+            alert.setTitle("Set frame per second");
+            alert.setMessage("Scroll vertically to set fps");
+
+            FrameLayout frameLayout = new FrameLayout(this);
+
+            final NumberPicker numberPicker = new NumberPicker(this);
+            numberPicker.setMaxValue(20);
+            numberPicker.setMinValue(1);
+            numberPicker.setWrapSelectorWheel(true);
+            numberPicker.setValue(1);
+            numberPicker.setGravity(Gravity.CENTER);
+
+            frameLayout.addView(numberPicker);
+
+            alert.setView(frameLayout);
+
+
+            alert.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    int value = numberPicker.getValue();
+                    TickTockMgr.getInstance().setFps(value);
+                    Toast.makeText(MainActivity.this, "FPS: " + value, Toast.LENGTH_LONG).show();
+                }
+            });
+
+            alert.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                }
+            });
+
+            alert.show();
             return true;
         }
 
