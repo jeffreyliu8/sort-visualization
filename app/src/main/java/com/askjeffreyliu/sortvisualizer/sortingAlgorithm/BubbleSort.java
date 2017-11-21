@@ -11,6 +11,7 @@ public class BubbleSort extends SortingAlgorithm {
 
     @Override
     public void sort() {
+        super.sort();
         Thread thread = new Thread() {
             @Override
             public void run() {

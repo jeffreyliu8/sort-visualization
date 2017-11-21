@@ -41,7 +41,7 @@ public class FirstActivity extends AppCompatActivity {
 
         numberPicker.setMinValue(1);
         numberPicker.setMaxValue(100);
-        numberPicker.setValue(7);
+        numberPicker.setValue(8);
         numberPicker.setWrapSelectorWheel(true);
 
         radioButtonOrder.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {

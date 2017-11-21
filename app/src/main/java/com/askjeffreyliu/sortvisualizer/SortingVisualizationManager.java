@@ -43,11 +43,23 @@ public class SortingVisualizationManager {
         algorithmsMap.put(algorithm.getClass().getSimpleName(), algorithm);
     }
 
-    public StepInfo popFromAlgorithm(String name) {
+    public StepInfo[] popFromAlgorithms() {
+        StepInfo[] result = new StepInfo[6];
+
+        result[0] = popFromAlgorithm(Constant.SORT_ALGORITHM_BUBBLE);
+        result[1] = popFromAlgorithm(Constant.SORT_ALGORITHM_MERGE);
+        result[2] = popFromAlgorithm(Constant.SORT_ALGORITHM_QUICK);
+        result[3] = popFromAlgorithm(Constant.SORT_ALGORITHM_INSERTION);
+        result[4] = popFromAlgorithm(Constant.SORT_ALGORITHM_SELECTION);
+        result[5] = popFromAlgorithm(Constant.SORT_ALGORITHM_HEAP);
+        return result;
+    }
+
+    private StepInfo popFromAlgorithm(String name) {
         if (algorithmsMap.containsKey(name)) {
             return algorithmsMap.get(name).pop();
         }
-        Logger.e(name + " does not exist");
+//        Logger.e(name + " does not exist");
         return null;
     }
 

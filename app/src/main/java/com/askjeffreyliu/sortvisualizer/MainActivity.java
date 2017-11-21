@@ -15,10 +15,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.askjeffreyliu.sortvisualizer.sortingAlgorithm.StepInfo;
-import com.askjeffreyliu.sortvisualizer.viewModel.BubbleViewModel;
+
 import com.askjeffreyliu.sortvisualizer.viewModel.ChartViewModel;
-import com.askjeffreyliu.sortvisualizer.viewModel.ChartViewModelFactory;
-import com.askjeffreyliu.sortvisualizer.viewModel.MergeViewModel;
+
 
 import java.util.List;
 
@@ -32,8 +31,7 @@ public class MainActivity extends AppCompatActivity {
             , R.id.text6})
     List<TextView> textViews;
 
-    private BubbleViewModel mBubbleSortModel;
-    private MergeViewModel mMergeSortModel;
+    private ChartViewModel mBubbleSortModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,67 +50,43 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ChartViewModelFactory factory = new ChartViewModelFactory();
-        setBubbleSortListener(factory, 0);
-        setMergeSortListener(factory, 1);
+        TickTockMgr.getInstance().setFps(1);
+        setSortListener();
     }
 
-    private void setBubbleSortListener(ChartViewModelFactory factory, final int order) {
+    private void setSortListener() {
         // Get the ViewModel.
-        mBubbleSortModel = ViewModelProviders.of(this, factory).get(BubbleViewModel.class);
+        mBubbleSortModel = ViewModelProviders.of(this).get(ChartViewModel.class);
 
 
         // Create the observer which updates the UI.
-        final Observer<StepInfo> dataObserver = new Observer<StepInfo>() {
+        final Observer<StepInfo[]> dataObserver = new Observer<StepInfo[]>() {
             @Override
-            public void onChanged(@Nullable final StepInfo newData) {
+            public void onChanged(@Nullable final StepInfo[] newData) {
                 // Update the UI, in this case, a TextView.
-                if (newData != null) {
-                    String result = "";
-                    for (int i = 0; i < newData.getList().length; i++) {
-                        result = result + newData.getList()[i] + " ";
-                    }
-                    result = result + "   step " + newData.getStepCounter();
-                    textViews.get(order).setText(result);
 
-                    if (newData.isFinalStep()) {
-                        textViews.get(order).setText(textViews.get(order).getText() + "  done");
+                for (int j = 0; j < newData.length; j++) {
+                    StepInfo stepInfo = newData[j];
+                    if (stepInfo != null) {
+                        String result = "";
+                        for (int i = 0; i < stepInfo.getList().length; i++) {
+                            result = result + stepInfo.getList()[i] + " ";
+                        }
+                        result = result + "   step " + stepInfo.getStepCounter();
+                        textViews.get(j).setText(result);
+
+                        if (stepInfo.isFinalStep()) {
+                            textViews.get(j).setText(textViews.get(j).getText() + "  done");
+                        }
                     }
                 }
             }
         };
 
         // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
-        mBubbleSortModel.getElapsedTime().observe(this, dataObserver);
+        mBubbleSortModel.getSortResult().observe(this, dataObserver);
     }
 
-    private void setMergeSortListener(ChartViewModelFactory factory, final int order) {
-        // Get the ViewModel.
-        mMergeSortModel = ViewModelProviders.of(this, factory).get(MergeViewModel.class);
-
-//         Create the observer which updates the UI.
-        final Observer<StepInfo> dataObserver = new Observer<StepInfo>() {
-            @Override
-            public void onChanged(@Nullable final StepInfo newData) {
-                // Update the UI, in this case, a TextView.
-                if (newData != null) {
-                    String result = "";
-                    for (int i = 0; i < newData.getList().length; i++) {
-                        result = result + newData.getList()[i] + " ";
-                    }
-                    result = result + "   step " + newData.getStepCounter();
-                    textViews.get(order).setText(result);
-
-                    if (newData.isFinalStep()) {
-                        textViews.get(order).setText(textViews.get(order).getText() + "  done");
-                    }
-                }
-            }
-        };
-
-        // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
-        mMergeSortModel.getElapsedTime().observe(this, dataObserver);
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
