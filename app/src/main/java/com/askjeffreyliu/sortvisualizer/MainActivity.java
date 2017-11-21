@@ -21,7 +21,16 @@ import android.widget.Toast;
 
 import com.askjeffreyliu.sortvisualizer.sortingAlgorithm.StepInfo;
 import com.askjeffreyliu.sortvisualizer.viewModel.ChartViewModel;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindViews;
@@ -29,12 +38,14 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static String INPUT_DATA = "initSet";
+    @BindViews({R.id.chart1, R.id.chart2, R.id.chart3, R.id.chart4, R.id.chart5
+            , R.id.chart6})
+    List<BarChart> mCharts;
 
     @BindViews({R.id.text1, R.id.text2, R.id.text3, R.id.text4, R.id.text5
             , R.id.text6})
     List<TextView> textViews;
-
-    private ChartViewModel mBubbleSortModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,13 +64,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        TickTockMgr.getInstance().setFps(1);
         setSortListener();
+
+        int[] initSet = getIntent().getIntArrayExtra(INPUT_DATA);
+        if (initSet != null) {
+            for (int i = 0; i < 6; i++) {
+                drawChart(i, initSet);
+            }
+        }
     }
 
     private void setSortListener() {
         // Get the ViewModel.
-        mBubbleSortModel = ViewModelProviders.of(this).get(ChartViewModel.class);
+        ChartViewModel mBubbleSortModel = ViewModelProviders.of(this).get(ChartViewModel.class);
 
 
         // Create the observer which updates the UI.
@@ -71,11 +88,9 @@ public class MainActivity extends AppCompatActivity {
                 for (int j = 0; j < newData.length; j++) {
                     StepInfo stepInfo = newData[j];
                     if (stepInfo != null) {
-                        String result = "";
-                        for (int i = 0; i < stepInfo.getList().length; i++) {
-                            result = result + stepInfo.getList()[i] + " ";
-                        }
-                        result = result + "   step " + stepInfo.getStepCounter();
+                        setData(j, stepInfo.getList());
+
+                        String result = "step " + stepInfo.getStepCounter();
                         textViews.get(j).setText(result);
 
                         if (stepInfo.isFinalStep()) {
@@ -118,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
             numberPicker.setMaxValue(20);
             numberPicker.setMinValue(1);
             numberPicker.setWrapSelectorWheel(true);
-            numberPicker.setValue(1);
+            numberPicker.setValue(TickTockMgr.getInstance().getFps());
             numberPicker.setGravity(Gravity.CENTER);
 
             frameLayout.addView(numberPicker);
@@ -144,5 +159,73 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void drawChart(int index, int[] data) {
+
+
+        mCharts.get(index).setDrawBarShadow(false);
+        mCharts.get(index).setDrawValueAboveBar(true);
+
+        mCharts.get(index).getDescription().setEnabled(false);
+
+
+        // scaling can now only be done on x- and y-axis separately
+        mCharts.get(index).setPinchZoom(false);
+
+        mCharts.get(index).setDrawGridBackground(false);
+
+
+        XAxis xAxis = mCharts.get(index).getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+
+        xAxis.setDrawGridLines(false);
+        xAxis.setDrawAxisLine(false);
+        xAxis.setDrawLabels(false);
+
+
+        YAxis leftAxis = mCharts.get(index).getAxisLeft();
+        leftAxis.setDrawAxisLine(false);
+        leftAxis.setDrawLabels(false);
+
+        YAxis rightAxis = mCharts.get(index).getAxisRight();
+        rightAxis.setDrawGridLines(false);
+        rightAxis.setDrawAxisLine(false);
+        rightAxis.setDrawLabels(false);
+
+        mCharts.get(index).getLegend().setEnabled(false);
+
+        setData(index, data);
+    }
+
+    private void setData(int index, int[] listData) {
+        ArrayList<BarEntry> yVals1 = new ArrayList<>();
+        for (int i = 0; i < listData.length; i++) {
+            float val = listData[i];
+            yVals1.add(new BarEntry(i, val));
+        }
+        BarDataSet set1;
+
+        if (mCharts.get(index).getData() != null &&
+                mCharts.get(index).getData().getDataSetCount() > 0) {
+            set1 = (BarDataSet) mCharts.get(index).getData().getDataSetByIndex(0);
+            set1.setValues(yVals1);
+            mCharts.get(index).getData().notifyDataChanged();
+            mCharts.get(index).notifyDataSetChanged();
+            mCharts.get(index).invalidate();
+        } else {
+            set1 = new BarDataSet(yVals1, "label");
+
+            set1.setDrawIcons(false);
+
+            set1.setColors(ColorTemplate.MATERIAL_COLORS);
+
+            ArrayList<IBarDataSet> dataSets = new ArrayList<>();
+            dataSets.add(set1);
+
+            BarData data = new BarData(dataSets);
+
+            mCharts.get(index).setData(data);
+        }
     }
 }

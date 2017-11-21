@@ -3,7 +3,6 @@ package com.askjeffreyliu.sortvisualizer;
 
 import com.askjeffreyliu.sortvisualizer.sortingAlgorithm.SortingAlgorithm;
 import com.askjeffreyliu.sortvisualizer.sortingAlgorithm.StepInfo;
-import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,7 +31,6 @@ public class SortingVisualizationManager {
     public void init(int numberOfItems, int orderOfInputSet) {
         this.numberOfItems = numberOfItems;
         this.orderOfInputSet = orderOfInputSet;
-        Logger.d("init() called with: numberOfItems = [" + numberOfItems + "], orderOfInputSet = [" + orderOfInputSet + "]");
     }
 
     public void selectAlgorithms(SortingAlgorithm algorithm) {
@@ -59,7 +57,6 @@ public class SortingVisualizationManager {
         if (algorithmsMap.containsKey(name)) {
             return algorithmsMap.get(name).pop();
         }
-//        Logger.e(name + " does not exist");
         return null;
     }
 

@@ -20,8 +20,10 @@ public class TickTockMgr {
     private SimpleTickTockListener mListener = null;
     private TimerTask timerTask;
     private Timer timer;
+    private int fps;
 
     public void setFps(int fps) {
+        this.fps = fps;
         if (timerTask != null)
             timerTask.cancel();
         timerTask = new TimerTask() {
@@ -38,6 +40,10 @@ public class TickTockMgr {
         timer.scheduleAtFixedRate(timerTask, time, time);
     }
 
+    public int getFps() {
+        return fps;
+    }
+
 
     public void requestUpdates(SimpleTickTockListener mListener) {
         this.mListener = mListener;
@@ -45,7 +51,7 @@ public class TickTockMgr {
         if (timerTask != null)
             timerTask.cancel();
 
-        setFps(1);
+        setFps(10);
     }
 
     public void removeUpdates(SimpleTickTockListener mListener) {

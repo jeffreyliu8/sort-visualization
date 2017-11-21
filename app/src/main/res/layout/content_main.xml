@@ -50,16 +50,27 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/bubble_sort" />
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/text1"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:text="@string/bubble_sort" />
+
+                <TextView
+                    android:id="@+id/text1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/chart1"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/bubble_sort" />
+                android:layout_height="match_parent" />
         </LinearLayout>
     </android.support.v7.widget.CardView>
 
@@ -83,16 +94,27 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/merge_sort" />
 
-            <TextView
-                android:id="@+id/text2"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:text="@string/merge_sort" />
+
+                <TextView
+                    android:id="@+id/text2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/chart2"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/merge_sort" />
+                android:layout_height="match_parent" />
         </LinearLayout>
 
     </android.support.v7.widget.CardView>
@@ -118,16 +140,27 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/quick_sort" />
 
-            <TextView
-                android:id="@+id/text3"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:text="@string/quick_sort" />
+
+                <TextView
+                    android:id="@+id/text3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/chart3"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/quick_sort" />
+                android:layout_height="match_parent" />
         </LinearLayout>
     </android.support.v7.widget.CardView>
 
@@ -152,16 +185,27 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/insertion_sort" />
 
-            <TextView
-                android:id="@+id/text4"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:text="@string/insertion_sort" />
+
+                <TextView
+                    android:id="@+id/text4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/chart4"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/insertion_sort" />
+                android:layout_height="match_parent" />
         </LinearLayout>
     </android.support.v7.widget.CardView>
 
@@ -186,16 +230,26 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/selection_sort" />
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/text5"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:text="@string/selection_sort" />
+
+                <TextView
+                    android:id="@+id/text5"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/chart5"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/selection_sort" />
+                android:layout_height="match_parent" />
         </LinearLayout>
     </android.support.v7.widget.CardView>
 
@@ -220,16 +274,27 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/heap_sort" />
 
-            <TextView
-                android:id="@+id/text6"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:text="@string/heap_sort" />
+
+                <TextView
+                    android:id="@+id/text6"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/chart6"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/heap_sort" />
+                android:layout_height="match_parent" />
         </LinearLayout>
     </android.support.v7.widget.CardView>
 </android.support.constraint.ConstraintLayout>

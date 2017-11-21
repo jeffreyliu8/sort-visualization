@@ -32,6 +32,7 @@ public class MergeSort extends SortingAlgorithm {
      * @param max  The maximum index to be sorted.
      */
     private void mergeSort(int[] ints, int min, int max) {
+        addStepToQueue(false);
         if (max - min == 0) {//only one element.
             //no swap
         } else if (max - min == 1) {//only two elements and swaps them
@@ -83,8 +84,6 @@ public class MergeSort extends SortingAlgorithm {
         ints[loc1] = ints[loc1] ^ ints[loc2];
         ints[loc2] = ints[loc1] ^ ints[loc2];
         ints[loc1] = ints[loc1] ^ ints[loc2];
-
-        addStepToQueue(false);
     }
 
 

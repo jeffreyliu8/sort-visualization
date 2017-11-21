@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.CheckBox;
 
-
 import com.askjeffreyliu.sortvisualizer.sortingAlgorithm.BubbleSort;
 import com.askjeffreyliu.sortvisualizer.sortingAlgorithm.HeapSort;
 import com.askjeffreyliu.sortvisualizer.sortingAlgorithm.InsertionSort;
@@ -17,12 +16,13 @@ import com.askjeffreyliu.sortvisualizer.sortingAlgorithm.QuickSort;
 import com.askjeffreyliu.sortvisualizer.sortingAlgorithm.SelectionSort;
 import com.askjeffreyliu.sortvisualizer.sortingAlgorithm.SortingAlgorithm;
 
-import java.util.HashSet;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
+
+import static com.askjeffreyliu.sortvisualizer.MainActivity.INPUT_DATA;
 
 public class SecondActivity extends AppCompatActivity {
 
@@ -86,7 +86,9 @@ public class SecondActivity extends AppCompatActivity {
                     Snackbar.make(view, "Please select at least 1 item", Snackbar.LENGTH_LONG)
                             .show();
                 } else {
-                    startActivity(new Intent(SecondActivity.this, MainActivity.class));
+                    Intent i = new Intent(SecondActivity.this, MainActivity.class);
+                    i.putExtra(INPUT_DATA, dataSet);
+                    startActivity(i);
                 }
             }
         });

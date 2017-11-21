@@ -31,8 +31,8 @@ public class InsertionSort extends SortingAlgorithm {
                     temp = input[j];
                     input[j] = input[j - 1];
                     input[j - 1] = temp;
-                    addStepToQueue(false);
                 }
+                addStepToQueue(false);
             }
         }
         return input;
