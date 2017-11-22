@@ -23,6 +23,7 @@ import butterknife.BindViews;
 import butterknife.ButterKnife;
 
 import static com.askjeffreyliu.sortvisualizer.MainActivity.INPUT_DATA;
+import static com.askjeffreyliu.sortvisualizer.MainActivity.INPUT_SELECTION;
 
 public class SecondActivity extends AppCompatActivity {
 
@@ -46,6 +47,11 @@ public class SecondActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                boolean[] isCheckedList = new boolean[6];
+                for (int i = 0; i < isCheckedList.length; i++) {
+                    isCheckedList[i] = checkBoxes.get(i).isChecked();
+                }
+
                 // Merge sort, Quick sort, Insertion sort, and Selection sort. Bonus points for Heap sort.
                 int[] dataSet = SortingVisualizationManager.getInstance().generateData();
                 if (checkBoxes.get(0).isChecked()) {
@@ -85,6 +91,7 @@ public class SecondActivity extends AppCompatActivity {
                 } else {
                     Intent i = new Intent(SecondActivity.this, MainActivity.class);
                     i.putExtra(INPUT_DATA, dataSet);
+                    i.putExtra(INPUT_SELECTION, isCheckedList);
                     startActivity(i);
                 }
             }

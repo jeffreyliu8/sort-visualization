@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -39,6 +40,7 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity {
 
     public static String INPUT_DATA = "initSet";
+    public static String INPUT_SELECTION = "initSelection";
     @BindViews({R.id.chart1, R.id.chart2, R.id.chart3, R.id.chart4, R.id.chart5
             , R.id.chart6})
     List<BarChart> mCharts;
@@ -46,6 +48,10 @@ public class MainActivity extends AppCompatActivity {
     @BindViews({R.id.text1, R.id.text2, R.id.text3, R.id.text4, R.id.text5
             , R.id.text6})
     List<TextView> textViews;
+
+    @BindViews({R.id.card_view1, R.id.card_view2, R.id.card_view3, R.id.card_view4, R.id.card_view5
+            , R.id.card_view6})
+    List<CardView> cardViews;
 
     @BindView(R.id.fab)
     FloatingActionButton fab;
@@ -65,6 +71,13 @@ public class MainActivity extends AppCompatActivity {
                 setFabImageAndRun(isOn);
             }
         });
+
+        boolean[] isChecked = getIntent().getBooleanArrayExtra(INPUT_SELECTION);
+        if (isChecked != null) {
+            for (int i = 0; i < isChecked.length; i++) {
+                cardViews.get(i).setVisibility(isChecked[i] ? View.VISIBLE : View.GONE);
+            }
+        }
 
         int[] initSet = getIntent().getIntArrayExtra(INPUT_DATA);
         if (initSet != null) {
