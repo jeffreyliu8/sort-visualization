@@ -43,11 +43,11 @@ public class QuickSort extends SortingAlgorithm {
                     tmp = a[i];
                     a[i] = a[j];
                     a[j] = tmp;
-                    addStepToQueue(false);
                     i++;
                     j--;
                     //we need to +/- both i,j, else it will stick at 0 or be same number
                 }
+                addStepToQueue(false);
             } while (i <= j);           //your code was i<j, hence infinite loop on 0 case
 
             //you had a swap here, I don't think it's needed.
